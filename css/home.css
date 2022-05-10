@@ -1,0 +1,22 @@
+.demo {
+  color: white;
+  background-color: #072146;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  padding: 5%;
+}
+.transaccion {
+  padding: 2%;
+  background-color: rgba(245, 245, 245, 0.678);
+}
+
+.formtransaction {
+  color: black;
+}
+.inputnumber {
+  color: black;
+}
+.subutton {
+  color: black;
+}
