@@ -101,7 +101,7 @@ function crearbloque(data) {
       data.hash +
       "</p></h3>" +
       " <h5>TIME: " +
-      data.timestamp +
+      new Date(data.timestamp).toUTCString().replace(" GMT", "") +
       "</h5>" +
       creartransaccion(data.data) +
       "<h3>PREVHASH:  <p>" +
