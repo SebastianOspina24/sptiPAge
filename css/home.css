@@ -20,3 +20,37 @@
 .subutton {
   color: black;
 }
+.cadena {
+  padding: 2%;
+  display: inline;
+}
+.bloque {
+  margin: 1%;
+  display: inline-block;
+  border-radius: 3%;
+  background-color: #1464a5;
+  color: black;
+  width: 30%;
+}
+.bloque p {
+  padding: 3%;
+  font-size: small;
+  word-break: break-word;
+}
+.transa {
+  margin: 8%;
+  border-radius: 10%;
+  border: 2px solid black;
+}
+.transa1 {
+  background-color: rgba(69, 236, 63, 0.87);
+}
+.transa2 {
+  background-color: rgba(129, 67, 245, 0.904);
+}
+.transa3 {
+  background-color: rgb(221, 238, 66);
+}
+.genesis {
+  background-color: #c42828;
+}

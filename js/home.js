@@ -48,16 +48,31 @@ async function agregarTransaccion() {
   };
   arreglo.push(transaWid);
   if (arreglo.length == 3) {
-    console.log(arreglo);
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:3001/mineBlock",
-      data: JSON.stringify({ data: arreglo }),
-      dataType: "json",
-      contentType: "application/json; charset=utf-8",
+    fetch("http://localhost:3001/mineBlock", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: arreglo }),
+    }).then((data) => {
+      arreglo = [];
+      agregarBloque();
     });
-    arreglo = [];
   }
+}
+
+function agregarBloque() {
+  var destino = document.getElementById("blockChain");
+  while (destino.firstChild) {
+    destino.removeChild(destino.firstChild);
+  }
+  fetch("http://localhost:3001/blocks")
+    .then((data) => data.json())
+    .then((data) => {
+      data.forEach(function (i) {
+        destino.appendChild(crearbloque(i));
+      });
+    });
 }
 
 async function generateHash(message) {
@@ -77,4 +92,53 @@ function destination() {
     res = document.getElementById("selectedTransaction").value;
   }
   return res;
+}
+
+function crearbloque(data) {
+  var blo = parseHtml(
+    '<div class="bloque">' +
+      "<h3>HASH: <p>" +
+      data.hash +
+      "</p></h3>" +
+      " <h5>TIME: " +
+      data.timestamp +
+      "</h5>" +
+      creartransaccion(data.data) +
+      "<h3>PREVHASH:  <p>" +
+      data.previousHash +
+      "</p></h3>" +
+      "</div>"
+  );
+  return blo;
+}
+function creartransaccion(data) {
+  var strin = "";
+  if (data == "my genesis block!!") {
+    strin = '<div class="transa genesis"><h3>Genesis</h3></div>';
+  } else {
+    for (i = 0; i < data.length; i++) {
+      var res = constructorTransa(i + 1, data[i]);
+      strin += res;
+    }
+  }
+  return strin;
+}
+function constructorTransa(i, data) {
+  return (
+    '<div class="transa transa' +
+    i +
+    '">' +
+    "<div>Hash: <p>" +
+    data.id +
+    "</p></div>" +
+    "<div>Transaccion: " +
+    data.transaction.tipo +
+    "</div>" +
+    " <div>Origen: " +
+    data.transaction.origen +
+    "</div>" +
+    "<div>Destino: " +
+    data.transaction.destino +
+    "</div></div>"
+  );
 }
